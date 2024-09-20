@@ -7,6 +7,7 @@ function App() {
   const [nat, setNat] = useState("uzbek");
   const [desc, setDesc] = useState("");
   const [users, setUsers] = useState([]);
+  const [error, setError] = useState(""); // Error xabarlarini saqlash
 
   function handleChangeName(event) {
     setUsername(event.target.value);
@@ -26,44 +27,59 @@ function App() {
 
   function handleSave(event) {
     event.preventDefault();
-    const newUser = { username, email, nat, desc };
-    setUsers([...users, newUser]);
 
-    // Clear the form fields after saving
+    if (!username || !email || !desc) {
+      setError("Iltimos, barcha maydonlarni to‘ldiring.");
+      return;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      setError("Iltimos, to‘g‘ri email manzilini kiriting.");
+      return;
+    }
+
+    setError("");
+
+    const newUser = { username, email, nat, desc };
+
+    setUsers((prevUsers) => [...prevUsers, newUser]);
     setUsername("");
     setEmail("");
     setNat("uzbek");
     setDesc("");
+
+    setTimeout(() => {
+      const cardElements = document.querySelectorAll(".card");
+      cardElements[cardElements.length - 1].classList.add("show");
+    }, 0);
   }
 
   return (
     <div className="div">
       <form className="form">
         <li className="list">
-          <label for="ism">Ism:</label>
+          <label>Ism:</label>
           <input
             onChange={handleChangeName}
             value={username}
             type="text"
             placeholder="Enter name..."
-            id="ism"
-            required
           />
         </li>
 
         <li className="list">
-          <label for="email">Email:</label>
+          <label>Email:</label>
           <input
             onChange={handleChangeEmail}
             value={email}
             type="email"
             placeholder="Email..."
-            id="email"
-            required
           />
         </li>
 
         <li className="list">
+          <label>Millat:</label>
           <select onChange={handleChangeNat} value={nat}>
             <option value="uzbek">uzbek</option>
             <option value="russian">russian</option>
@@ -72,18 +88,16 @@ function App() {
         </li>
 
         <li className="list">
-          <label for="izoh">Izoh yozmoq:</label>
+          <label>Tavsif:</label>
           <textarea
             onChange={handleChangeDesc}
             value={desc}
             placeholder="Enter description..."
-            id="izoh"
-            required
           ></textarea>
         </li>
         <button onClick={handleSave}>Save</button>
       </form>
-
+      {error && <div className="error">{error}</div>} {/* Xatolik xabari */}
       <h3>Users List:</h3>
       <div className="cards-container">
         {users.map((user, index) => (
