@@ -7,7 +7,7 @@ function App() {
   const [nat, setNat] = useState("uzbek");
   const [desc, setDesc] = useState("");
   const [users, setUsers] = useState([]);
-  const [error, setError] = useState(""); // Error xabarlarini saqlash
+  const [error, setError] = useState("");
 
   function handleChangeName(event) {
     setUsername(event.target.value);
@@ -100,7 +100,7 @@ function App() {
         </li>
         <button onClick={handleSave}>Save</button>
       </form>
-      {error && <div className="error">{error}</div>} {/* Xatolik xabari */}
+      {error && <div className="error">{error}</div>}
       <h3>Users List:</h3>
       <div className="cards-container">
         {users.map((user, index) => (
