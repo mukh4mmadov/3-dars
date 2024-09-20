@@ -59,8 +59,9 @@ function App() {
     <div className="div">
       <form className="form">
         <li className="list">
-          <label>Ism:</label>
+          <label for="ism">Ism:</label>
           <input
+            id="ism"
             onChange={handleChangeName}
             value={username}
             type="text"
@@ -69,8 +70,9 @@ function App() {
         </li>
 
         <li className="list">
-          <label>Email:</label>
+          <label for="email">Email:</label>
           <input
+            id="email"
             onChange={handleChangeEmail}
             value={email}
             type="email"
@@ -79,8 +81,8 @@ function App() {
         </li>
 
         <li className="list">
-          <label>Millat:</label>
-          <select onChange={handleChangeNat} value={nat}>
+          <label for="millat">Millat:</label>
+          <select id="millat" onChange={handleChangeNat} value={nat}>
             <option value="uzbek">uzbek</option>
             <option value="russian">russian</option>
             <option value="english">english</option>
@@ -88,8 +90,9 @@ function App() {
         </li>
 
         <li className="list">
-          <label>Tavsif:</label>
+          <label for="tavsif">Tavsif:</label>
           <textarea
+            id="tavsif"
             onChange={handleChangeDesc}
             value={desc}
             placeholder="Enter description..."
